@@ -1,9 +1,48 @@
-The data processing part of our code (data/preprocess.py) is based on the code of KG-GPT (https://github.com/jiho283/KG-GPT/) and we use the same dataset as KG-GPT. The dataset, requirements, and data preparation follow the setting of KG-GPT.
+# Knowledge Graph-Enhanced Large Language Models via Path Selection
 
-You can download FactKG from https://github.com/jiho283/FactKG and MetaQA from https://github.com/yuyuz/MetaQA.
+The codes are associated with the following paper:
 
-The few-shot examples from all datasets are given by KG-GPT.
-make_training_set.py is for the building of our training data. You can save the output file output.json in a txt file output.txt.
-pretrain_LM_encoder.py performs the optimization of the encoder.
-rewrite.py will rewrite output.txt into output.jsonl
-test.py/test-1hop.py/test-2hop.py are the inference code on each dataset, respectively.
+>**Knowledge Graph-Enhanced Large Language Models via Path Selection,**     
+>Haochen Liu, Song Wang, Yaochen Zhu, Yushun Dong, Jundong Li,     
+>Annual Meeting of the Association for Computational Linguistics (ACL), 2024.
+
+
+## 1. Datasets
+
+The dataset, requirements, and data preparation follow the setting of [KG-GPT](https://github.com/jiho283/KG-GPT/). 
+Download [FactKG](https://github.com/jiho283/FactKG) and [MetaQA](https://github.com/yuyuz/MetaQA) here.
+
+## 2. Openai Key
+
+Write your own OpenAI API key in factkg/openai_api_key.txt and metaqa/openai_api_key.txt and save them.
+
+## 3. Building of the Training Data
+
+To build the specific training data from the original datasets:
+
+Run
+
+    cd factkg
+    python make_training_set.py
+
+You can also run rewrite.py to change the txt file into jsonl file.
+
+## 4. Training
+
+To train our model on dataset:
+
+Run
+
+    python pretrain_LM_encoder.py
+
+## 4. Evaluation
+
+To test the trained SAFER model:
+
+Run
+
+    python test.py
+
+## 5. Acknowledgment
+
+The dataset, requirements, and data preparation follow the setting of [KG-GPT](https://github.com/jiho283/KG-GPT/). Thanks to the authors and developers!

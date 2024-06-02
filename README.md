@@ -10,6 +10,7 @@ The codes are associated with the following paper:
 ## 1. Datasets
 
 The dataset, requirements, and data preparation follow the setting of [KG-GPT](https://github.com/jiho283/KG-GPT/). 
+
 Download [FactKG](https://github.com/jiho283/FactKG) and [MetaQA](https://github.com/yuyuz/MetaQA) here.
 
 ## 2. Openai Key
@@ -37,7 +38,7 @@ Run
 
 ## 4. Evaluation
 
-To test the trained SAFER model:
+To test the trained model:
 
 Run
 
@@ -45,4 +46,6 @@ Run
 
 ## 5. Acknowledgment
 
-The dataset, requirements, and data preparation follow the setting of [KG-GPT](https://github.com/jiho283/KG-GPT/). Thanks to the authors and developers!
+The dataset, requirements, and data preparation follow the setting of [KG-GPT](https://github.com/jiho283/KG-GPT/). 
+
+Thanks to the authors and developers!

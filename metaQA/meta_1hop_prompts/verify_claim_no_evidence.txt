@@ -1,0 +1,57 @@
+Answer the questions based on evidence.
+Each evidence is in the form of [head, relation, tail] and it means "head's relation is tail.".
+If you think a question can have multiple answers, you must choose one and answer it.
+
+Examples)
+
+Claim A: what words describe [Coming Home]?
+Answer: 'hal ashby'
+
+
+Claim B: what films does [Faye Wong] appear in?
+Answer: 'Chungking Express'
+
+
+Claim C: what films are about [haneke]?
+Answer: 'The Piano Teacher'
+
+
+Claim D: who acted in the movie [Inescapable]?
+Answer: 'Marisa Tomei'
+
+
+Claim E: can you name a film directed by [William Cameron Menzies]?
+Answer: 'Things to Come'
+
+
+Claim F: what sort of movie is [Witness for the Prosecution]?
+Answer: 'Drama'
+
+
+Claim G: what type of film is [The Mouse That Roared]?
+Answer: 'Comedy'
+
+
+Claim H: what is the primary language in the film [Blackboards]?
+Answer: 'Kurdish'
+
+
+Claim I: who is the creator of the film script for [The Truth of Lie]?
+Answer: 'Roland Reber'
+
+
+Claim J: what was the release year of the film [The Return of Doctor X]?
+Answer: '1939'
+
+
+Claim K: which topics is movie [Topper] about?
+Answer: 'ghosts'
+
+
+Claim L: describe the movie [The Mouse on the Moon] in a few words?
+Answer: 'bd-r'
+
+
+Now let's verify the Claim based on the Evidence set. Please do not say there is no evdience, you must say the most related one entity from the evidence set.
+Claim: <<<<CLAIM>>>>
+Answer: 

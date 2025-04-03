@@ -51,7 +51,7 @@ with open(question_data, 'r') as f:
         label_set_dict[dataset["question_id"]] = dataset["Label"]
 
 
-# 设置OpenAI模型
+
 model_name = 'gpt-3.5-turbo-0613'
 max_tokens = 400
 temperature = 0.2

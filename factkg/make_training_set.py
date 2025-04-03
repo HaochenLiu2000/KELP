@@ -404,20 +404,21 @@ for ii in tqdm(data_num):
                 q_choose_list, context_correct_list, already_pos_list, already_neg_list, pos_sam_list, neg_sam_list=context_query(question_list,ground_truth_list,subgraph_list,i,q_choose_list,already_pos_list,already_neg_list)
             if q_choose_list=="answer length error":
                 break
-        for i in range(len(question_list)):
-            if already_pos_list[i]==True and already_neg_list[i]==True:
-                result_dict={}
-                result_dict['question_id']=question_id_list[i]
-                result_dict['question']=question_list[i]
-                result_dict['entity_set']=entity_set_list[i]
-                result_dict['ground_truth']=ground_truth_list[i]
-                result_dict['pos_triplet']=pos_sam_list[i][0]
-                result_dict['pos_context']=pos_sam_list[i][1]
-                result_dict['neg_triplet']=neg_sam_list[i][0]
-                result_dict['neg_context']=neg_sam_list[i][1]
-                with open('output.json', 'a') as f:
-                    json.dump(result_dict, f, indent=7)
-                    f.write('\n')      
+        with open('output.jsonl', 'a') as f:
+            for i in range(len(question_list)):
+                if already_pos_list[i] and already_neg_list[i]:
+                    result_dict = {
+                        'question_id': question_id_list[i],
+                        'question': question_list[i],
+                        'entity_set': entity_set_list[i],
+                        'ground_truth': ground_truth_list[i],
+                        'pos_triplet': pos_sam_list[i][0],
+                        'pos_context': pos_sam_list[i][1],
+                        'neg_triplet': neg_sam_list[i][0],
+                        'neg_context': neg_sam_list[i][1]
+                    }
+                    json_line = json.dumps(result_dict)
+                    f.write(json_line + '\n')
         
         question_id_list=[]
         question_list=[]

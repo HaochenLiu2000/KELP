@@ -15,10 +15,10 @@ hop=1
 
 if hop==1:
     question_data='data/onehop_train_set.jsonl'
-    save_file='onehop.json'
+    save_file='onehop.jsonl'
 if hop==2:
     question_data='data/twohop_train_set.jsonl'
-    save_file='twohop.json'
+    save_file='twohop.jsonl'
 
 with open(question_data, 'r') as f:
     for line in f:
@@ -307,14 +307,15 @@ for ii in tqdm(data_num):
             continue
         if pos_sam==True and neg_sam==True:
             break
-    if already_pos==True and already_neg==True:
-        result_dict={}
-        result_dict['question_id']=ii
-        result_dict['question']=question
-        result_dict['entity_set']=entity_set
-        result_dict['ground_truth']=ground_truth
-        result_dict['pos_triplet']=pos_sam
-        result_dict['neg_triplet']=neg_sam
-        with open(save_file, 'a') as f:
-            json.dump(result_dict, f, indent=5)
-            f.write('\n')      
+    if already_pos == True and already_neg == True:
+        result_dict = {
+            'question_id': ii,
+            'question': question,
+            'entity_set': entity_set,
+            'ground_truth': ground_truth,
+            'pos_triplet': pos_sam,
+            'neg_triplet': neg_sam
+        }
+        with open('output.jsonl', 'a') as f:
+            json_line = json.dumps(result_dict)
+            f.write(json_line + '\n') 

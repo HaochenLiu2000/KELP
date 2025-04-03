@@ -3,6 +3,7 @@
 The codes are associated with the following paper:
 
 >**Knowledge Graph-Enhanced Large Language Models via Path Selection,**  [PDF](https://arxiv.org/pdf/2406.13862) 
+
 >Haochen Liu, Song Wang, Yaochen Zhu, Yushun Dong, Jundong Li,     
 >Annual Meeting of the Association for Computational Linguistics (ACL), 2024.
 
@@ -96,7 +97,7 @@ If you find this work is helpful to your research, please consider citing our pa
 @inproceedings{liu-etal-2024-knowledge-graph,
     title = "Knowledge Graph-Enhanced Large Language Models via Path Selection",
     author = "Liu, Haochen and Wang, Song and Zhu, Yaochen and Dong, Yushun and Li, Jundong",
-    editor = "Ku, Lun-Wei  and Martins, Andre and Srikumar, Vivek",
+    editor = "Ku, Lun-Wei and Martins, Andre and Srikumar, Vivek",
     booktitle = "Findings of the Association for Computational Linguistics: ACL 2024",
     month = aug,
     year = "2024",

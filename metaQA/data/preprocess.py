@@ -7,11 +7,25 @@ import re
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Parsing input arguments.")
-    parser.add_argument('--test_1_hop', type=str, required=True, help='Path for metaqa 1-hop test set.')
-    parser.add_argument('--test_2_hop', type=str, required=True, help='Path for metaqa 2-hop test set.')
+    parser.add_argument('--setting', type=str, required=True)
     parser.add_argument('--kb', type=str, required=True, help='Path for metaqa kb.')
+
+    
     
     args = parser.parse_args()
+
+    setting=args.setting
+    if setting=='train':
+        test_1_hop='1-hop/vanilla/qa_train.txt'
+        test_2_hop='2-hop/vanilla/qa_train.txt'
+    elif setting=='dev':
+        test_1_hop='1-hop/vanilla/qa_dev.txt'
+        test_2_hop='2-hop/vanilla/qa_dev.txt'
+    elif setting=='test':
+        test_1_hop='1-hop/vanilla/qa_test.txt'
+        test_2_hop='2-hop/vanilla/qa_test.txt'
+
+
 
     test_1_hop = args.test_1_hop
     test_2_hop = args.test_2_hop
@@ -56,7 +70,7 @@ if __name__ == "__main__":
             labels = labels.split('|')
             onehop[seperated[0]+'?'] = {'entity_set': [entities[0]], 'Label': labels}
 
-    with jsonlines.open(f'data/onehop_dev_set.jsonl', mode='w') as w:
+    with jsonlines.open(f'data/onehop_{setting}_set.jsonl', mode='w') as w:
         total = 0
         for i, sample in enumerate(list(onehop)):
             new_sample = {}
@@ -76,7 +90,7 @@ if __name__ == "__main__":
             labels = labels.split('|')
             twohop[seperated[0]+'?'] = {'entity_set': [entities[0]], 'Label': labels}
 
-    with jsonlines.open(f'data/twohop_dev_set.jsonl', mode='w') as w:
+    with jsonlines.open(f'data/twohop_{setting}_set.jsonl', mode='w') as w:
         total = 0
         for i, sample in enumerate(list(twohop)):
             new_sample = {}

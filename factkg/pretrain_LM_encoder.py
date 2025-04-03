@@ -7,7 +7,7 @@ from tqdm import tqdm
 import json
 import jsonlines
 from sklearn.metrics.pairwise import cosine_similarity
-
+import os
 model_name = "distilbert-base-uncased"
 tokenizer = DistilBertTokenizer.from_pretrained(model_name)
 question_model = DistilBertModel.from_pretrained(model_name)
@@ -134,7 +134,8 @@ for epoch in range(num_epochs):
         total_loss_dev += loss.item()
 
     print(f"Epoch {epoch + 1}/{num_epochs}, Loss: {total_loss / len(dataloader)}, Loss_dev: {total_loss_dev / len(dataloader_dev)}")
+    os.makedirs('./model', exist_ok=True)
     torch.save(question_model.state_dict(), 'model/question_model_epoch'+str(epoch)+'.pth')
-    torch.save(question_model.state_dict(), 'model/question_model2_epoch'+str(epoch)+'.pth')
+    torch.save(question_model2.state_dict(), 'model/question_model2_epoch'+str(epoch)+'.pth')
 
 tokenizer.save_vocabulary('distilbert_tokenizer')

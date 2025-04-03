@@ -5,20 +5,37 @@ import openai
 import os
 from tqdm import tqdm
 import time
+import argparse
+parser = argparse.ArgumentParser(description="Parsing input arguments.")
+parser.add_argument('--setting', type=str, required=True)
+parser.add_argument('--hop', type=int, required=True)
+args = parser.parse_args()
+setting = args.setting
+hop=args.hop
+
+if setting=='train':
+    if hop==1:
+        question_data=f'data/onehop_{setting}_set.jsonl'
+        save_file='onehop.jsonl'
+    if hop==2:
+        question_data=f'data/twohop_{setting}_set.jsonl'
+        save_file='twohop.jsonl'
+elif setting=='dev':
+    if hop==1:
+        question_data=f'data/onehop_{setting}_set.jsonl'
+        save_file='onehop-dev.jsonl'
+    if hop==2:
+        question_data=f'data/twohop_{setting}_set.jsonl'
+        save_file='twohop-dev.jsonl'
+    
 openai.api_key = os.environ["OPENAI_API_KEY"]
 with open('data/metaqa_kg.pickle', 'rb') as f:
     kg = pickle.load(f)
 questions_dict = {}
 entity_set_dict = {}
 label_set_dict = {}
-hop=1
 
-if hop==1:
-    question_data='data/onehop_train_set.jsonl'
-    save_file='onehop.jsonl'
-if hop==2:
-    question_data='data/twohop_train_set.jsonl'
-    save_file='twohop.jsonl'
+
 
 with open(question_data, 'r') as f:
     for line in f:
@@ -316,6 +333,6 @@ for ii in tqdm(data_num):
             'pos_triplet': pos_sam,
             'neg_triplet': neg_sam
         }
-        with open('output.jsonl', 'a') as f:
+        with open(save_file, 'a') as f:
             json_line = json.dumps(result_dict)
             f.write(json_line + '\n') 

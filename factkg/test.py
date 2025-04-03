@@ -14,15 +14,21 @@ from tqdm import tqdm
 import json
 import jsonlines
 import torch
-
+import argparse
+parser = argparse.ArgumentParser(description="Parsing input arguments.")
+parser.add_argument('--question_model', type=str, required=True)
+parser.add_argument('--question_model_relation_only', type=str, required=True)
+args = parser.parse_args()
+question_model_path = args.question_model
+question_model_path_relation_only = args.question_model_relation_only
 
 tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-uncased')
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 question_model = DistilBertModel.from_pretrained('distilbert-base-uncased')
-question_model.load_state_dict(torch.load('model.pth'))
+question_model.load_state_dict(torch.load(question_model_path))
 question_model.to(device)
 question_model2 = DistilBertModel.from_pretrained('distilbert-base-uncased')
-question_model2.load_state_dict(torch.load('model_2.pth'))
+question_model2.load_state_dict(torch.load(question_model_path_relation_only))
 question_model2.to(device)
 def open_file(filepath):
     with open(filepath, 'r', encoding='utf-8') as infile:

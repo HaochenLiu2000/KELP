@@ -7,6 +7,13 @@ from tqdm import tqdm
 import json
 import jsonlines
 from sklearn.metrics.pairwise import cosine_similarity
+import os
+import argparse
+parser = argparse.ArgumentParser(description="Parsing input arguments.")
+parser.add_argument('--hop', type=int, required=True)
+args = parser.parse_args()
+hop=args.hop
+
 
 model_name = "distilbert-base-uncased"
 tokenizer = DistilBertTokenizer.from_pretrained(model_name)
@@ -68,14 +75,21 @@ class CustomDataset(Dataset):
                 data.append(obj)
         return data
 
-data_path = "one-hop.jsonl"
+
+if hop==1:
+    data_path = "onehop.jsonl"
+    data_path_dev = "onehop-dev.jsonl"
+if hop==2:
+    data_path = "twohop.jsonl"
+    data_path_dev = "twohop-dev.jsonl"
+
 dataset = CustomDataset(data_path)
 dataloader = DataLoader(dataset, batch_size=20, shuffle=True)
 optimizer_question = torch.optim.AdamW(question_model.parameters(), lr=2e-6)
 
 
 
-data_path_dev = "one-hop-dev.jsonl"
+
 dataset_dev = CustomDataset(data_path_dev)
 dataloader_dev=DataLoader(dataset_dev, batch_size=5, shuffle=True)
 criterion=nn.CosineSimilarity()
@@ -123,6 +137,7 @@ for epoch in range(num_epochs):
         total_loss_dev += loss.item()
 
     print(f"Epoch {epoch + 1}/{num_epochs}, Loss: {total_loss / len(dataloader)}, Loss_dev: {total_loss_dev / len(dataloader_dev)}")
+    os.makedirs('./model', exist_ok=True)
     torch.save(question_model.state_dict(), 'model/question_model_epoch'+str(epoch)+'.pth')
 
 tokenizer.save_vocabulary('distilbert_tokenizer')

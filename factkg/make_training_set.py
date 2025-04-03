@@ -5,6 +5,18 @@ import openai
 import os
 from tqdm import tqdm
 import time
+import argparse
+parser = argparse.ArgumentParser(description="Parsing input arguments.")
+parser.add_argument('--setting', type=str, required=True)
+args = parser.parse_args()
+setting = args.setting
+
+if setting=='train':
+    extracted='extracted_train_set.jsonl'
+    output_file='output.jsonl'
+elif setting=='dev':
+    extracted='extracted_dev_set.jsonl'
+    output_file='output_dev.jsonl'
 
 def open_file(filepath):
     with open(filepath, 'r', encoding='utf-8') as infile:
@@ -18,7 +30,7 @@ with open('dbpedia_2015_undirected_light.pickle', 'rb') as f:
 questions_dict = {}
 entity_set_dict = {}
 label_set_dict = {}
-with open('extracted_train_set.jsonl', 'r') as f:
+with open(extracted, 'r') as f:
     for line in f:
         if not line:
             continue
@@ -404,7 +416,7 @@ for ii in tqdm(data_num):
                 q_choose_list, context_correct_list, already_pos_list, already_neg_list, pos_sam_list, neg_sam_list=context_query(question_list,ground_truth_list,subgraph_list,i,q_choose_list,already_pos_list,already_neg_list)
             if q_choose_list=="answer length error":
                 break
-        with open('output.jsonl', 'a') as f:
+        with open(output_file, 'a') as f:
             for i in range(len(question_list)):
                 if already_pos_list[i] and already_neg_list[i]:
                     result_dict = {
